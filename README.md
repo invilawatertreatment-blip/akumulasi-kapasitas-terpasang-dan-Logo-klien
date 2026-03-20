@@ -1,0 +1,1 @@
+# akumulasi-kapasitas-terpasang-dan-Logo-klien
