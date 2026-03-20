@@ -3,67 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Kapasitas & Mitra Strategis</title>
+    <title>Dashboard Kapasitas - Interactive Odometer</title>
     <style>
         :root {
             --bg-dark: #0b1426;
-            --card-bg: #111b33;
             --accent-blue: #3b82f6;
             --text-gray: #94a3b8;
+            --btn-hover: #1d4ed8;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 40px;
             align-items: center;
         }
 
-        .container {
-            width: 100%;
-            max-width: 1100px;
-        }
+        .container { width: 100%; max-width: 1100px; margin-top: 50px; }
 
-        /* --- Style Bagian Akumulasi --- */
+        /* --- Style Stats Card --- */
         .stats-card {
             background-color: var(--bg-dark);
             color: white;
             padding: 40px;
             border-radius: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            position: relative; /* Untuk posisi tombol */
         }
 
-        .stats-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-        }
+        .stats-header { display: flex; align-items: center; margin-bottom: 30px; justify-content: space-between; }
+        
+        .header-left { display: flex; align-items: center; }
 
         .stats-icon {
             background-color: #1e4ed8;
             padding: 12px;
             border-radius: 12px;
             margin-right: 20px;
+        }
+
+        /* --- Tombol Turn On --- */
+        .btn-restart {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
             display: flex;
             align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
         }
 
-        .stats-title h2 {
-            margin: 0;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .btn-restart:hover {
+            background-color: var(--accent-blue);
+            border-color: var(--accent-blue);
         }
 
-        .stats-title p {
-            margin: 4px 0 0;
-            font-size: 0.85rem;
-            color: var(--text-gray);
-        }
+        .btn-restart svg { transition: transform 0.5s ease; }
+        .btn-restart:active svg { transform: rotate(360deg); }
 
         .stats-grid {
             display: grid;
@@ -73,10 +75,7 @@
             gap: 40px;
         }
 
-        .stat-item:last-child {
-            border-left: 1px solid #1e293b;
-            padding-left: 40px;
-        }
+        .stat-item:last-child { border-left: 1px solid #1e293b; padding-left: 40px; }
 
         .stat-label {
             color: var(--accent-blue);
@@ -87,68 +86,42 @@
         }
 
         .stat-value {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 700;
             margin: 0;
+            display: flex;
+            align-items: baseline;
         }
 
-        .stat-unit {
-            font-size: 1.25rem;
-            color: var(--text-gray);
-            font-weight: 400;
-        }
+        .stat-unit { font-size: 1.25rem; color: var(--text-gray); margin-left: 10px; }
 
-        /* --- Style Bagian Logo --- */
+        /* --- Partner Logos --- */
         .partner-section {
             background-color: var(--bg-dark);
             padding: 60px 40px;
             border-radius: 24px;
             text-align: center;
+            margin-top: 40px;
             width: 100%;
-        }
-
-        .partner-section h3 {
-            color: white;
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-            opacity: 0.8;
         }
 
         .logo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
         }
 
         .logo-item {
             background-color: white;
-            height: 120px;
-            border-radius: 16px;
+            height: 90px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            transition: transform 0.3s ease;
+            padding: 10px;
         }
 
-        .logo-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .logo-item img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: 1fr; }
-            .stat-item:last-child { border-left: none; padding-left: 0; }
-            .stat-value { font-size: 2.2rem; }
-            .logo-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        .logo-item img { max-width: 90%; max-height: 70%; object-fit: contain; }
     </style>
 </head>
 <body>
@@ -156,46 +129,103 @@
 <div class="container">
     <section class="stats-card">
         <div class="stats-header">
-            <div class="stats-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M2 6c.6.5 1.2 1 2.5 1C5.8 7 6.5 6 8 6s2.2 1 3.5 1c1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2.5-.5 2.5-.5"></path>
-                    <path d="M2 12c.6.5 1.2 1 2.5 1 1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2.5-.5 2.5-.5"></path>
-                    <path d="M2 18c.6.5 1.2 1 2.5 1 1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2.5-.5 2.5-.5"></path>
-                </svg>
+            <div class="header-left">
+                <div class="stats-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M2 6c.6.5 1.2 1 2.5 1 1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2.5-.5 2.5-.5M2 12c.6.5 1.2 1 2.5 1 1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2.5-.5 2.5-.5M2 18c.6.5 1.2 1 2.5 1 1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2.5-.5 2.5-.5"></path></svg>
+                </div>
+                <div>
+                    <h2 style="margin:0; font-size:1.1rem; text-transform:uppercase;">Akumulasi Kapasitas Terpasang</h2>
+                    <p style="margin:4px 0 0; font-size:0.8rem; color:var(--text-gray);">Rekam jejak sejak 2013</p>
+                </div>
             </div>
-            <div class="stats-title">
-                <h2>Akumulasi Kapasitas Terpasang</h2>
-                <p>Rekam jejak operasional di seluruh Indonesia sejak 2013</p>
-            </div>
+            
+            <button class="btn-restart" onclick="resetAndPlay()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                Turn On Water Meter
+            </button>
         </div>
 
         <div class="stats-grid">
             <div class="stat-item">
                 <div class="stat-label">Kapasitas Per Bulan</div>
-                <p class="stat-value">6.500.700 <span class="stat-unit">m³</span></p>
+                <div class="stat-value">
+                    <span class="odometer" data-target="6500700">0</span>
+                    <span class="stat-unit">m³</span>
+                </div>
             </div>
             <div class="stat-item">
                 <div class="stat-label">Kapasitas Per Tahun</div>
-                <p class="stat-value">78.008.400 <span class="stat-unit">m³</span></p>
+                <div class="stat-value">
+                    <span class="odometer" data-target="78008400">0</span>
+                    <span class="stat-unit">m³</span>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="partner-section">
-        <h3>Mitra Industri Strategis</h3>
+        <h3 style="color:white; margin-bottom:30px; opacity:0.7; font-size:0.8rem; letter-spacing:3px;">MITRA INDUSTRI STRATEGIS</h3>
         <div class="logo-grid">
-            <div class="logo-item"><img src="cemerlang-samudra-kontrindo.png" alt="Cemerlang Samudra"></div>
-            <div class="logo-item"><img src="kievit.png" alt="Kievit"></div>
-            <div class="logo-item"><img src="kiw.png" alt="KIW"></div>
-            <div class="logo-item"><img src="patria-maritim-perkasa.png" alt="Patria Maritim"></div>
-            <div class="logo-item"><img src="petrokimia-gresik.png" alt="Petrokimia Gresik"></div>
-            <div class="logo-item"><img src="tirta-asasta-depok.png" alt="Tirta Asasta"></div>
-            <div class="logo-item"><img src="tirtanadi.png" alt="Tirtanadi"></div>
-            <div class="logo-item"><img src="united-tractors.png" alt="United Tractors"></div>
-            <div class="logo-item"><img src="wika.png" alt="Wika"></div>
+            <div class="logo-item"><img src="cemerlang-samudra-kontrindo.png"></div>
+            <div class="logo-item"><img src="kievit.png"></div>
+            <div class="logo-item"><img src="kiw.png"></div>
+            <div class="logo-item"><img src="patria-maritim-perkasa.png"></div>
+            <div class="logo-item"><img src="petrokimia-gresik.png"></div>
+            <div class="logo-item"><img src="tirta-asasta-depok.png"></div>
+            <div class="logo-item"><img src="tirtanadi.png"></div>
+            <div class="logo-item"><img src="united-tractors.png"></div>
+            <div class="logo-item"><img src="wika.png"></div>
         </div>
     </section>
 </div>
+
+<script>
+    const formatNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+    function animateOdometer(el) {
+        const target = +el.getAttribute('data-target');
+        const duration = 2500; 
+        const frameRate = 1000 / 60;
+        const totalFrames = Math.round(duration / frameRate);
+        let currentFrame = 0;
+
+        const count = () => {
+            currentFrame++;
+            const progress = currentFrame / totalFrames;
+            const easeOutQuad = 1 - (1 - progress) * (1 - progress);
+            const currentNumber = Math.round(target * easeOutQuad);
+
+            el.innerText = formatNumber(currentNumber);
+
+            if (currentFrame < totalFrames) {
+                requestAnimationFrame(count);
+            } else {
+                el.innerText = formatNumber(target);
+            }
+        };
+        count();
+    }
+
+    function resetAndPlay() {
+        const elements = document.querySelectorAll('.odometer');
+        elements.forEach(el => {
+            el.innerText = "0"; // Reset ke nol dulu
+            setTimeout(() => animateOdometer(el), 100); // Putar lagi
+        });
+    }
+
+    // Jalankan otomatis saat pertama kali muncul di layar
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateOdometer(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.odometer').forEach(odo => observer.observe(odo));
+</script>
 
 </body>
 </html>
