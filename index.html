@@ -3,229 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Kapasitas - Interactive Odometer</title>
+    <title>Invila™ | Project Capacity Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root {
-            --bg-dark: #0b1426;
-            --accent-blue: #3b82f6;
-            --text-gray: #94a3b8;
-            --btn-hover: #1d4ed8;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .container { width: 100%; max-width: 1100px; margin-top: 50px; }
-
-        /* --- Style Stats Card --- */
-        .stats-card {
-            background-color: var(--bg-dark);
-            color: white;
-            padding: 40px;
-            border-radius: 24px;
-            position: relative; /* Untuk posisi tombol */
-        }
-
-        .stats-header { display: flex; align-items: center; margin-bottom: 30px; justify-content: space-between; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         
-        .header-left { display: flex; align-items: center; }
-
-        .stats-icon {
-            background-color: #1e4ed8;
-            padding: 12px;
-            border-radius: 12px;
-            margin-right: 20px;
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #020617; /* Slate-950 */
+            color: #f8fafc;
         }
 
-        /* --- Tombol Turn On --- */
-        .btn-restart {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
+        .odometer {
+            display: inline-block;
+            transition: all 0.5s ease;
         }
 
-        .btn-restart:hover {
-            background-color: var(--accent-blue);
-            border-color: var(--accent-blue);
+        .project-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .btn-restart svg { transition: transform 0.5s ease; }
-        .btn-restart:active svg { transform: rotate(360deg); }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border-top: 1px solid #1e293b;
-            padding-top: 30px;
-            gap: 40px;
+        @media (hover: hover) {
+            .project-card:hover {
+                border-color: #2563eb;
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.3);
+            }
         }
 
-        .stat-item:last-child { border-left: 1px solid #1e293b; padding-left: 40px; }
-
-        .stat-label {
-            color: var(--accent-blue);
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 8px;
+        .hero-gradient {
+            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.15), transparent),
+                        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1), transparent);
         }
 
-        .stat-value {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin: 0;
-            display: flex;
-            align-items: baseline;
-        }
-
-        .stat-unit { font-size: 1.25rem; color: var(--text-gray); margin-left: 10px; }
-
-        /* --- Partner Logos --- */
-        .partner-section {
-            background-color: var(--bg-dark);
-            padding: 60px 40px;
-            border-radius: 24px;
-            text-align: center;
-            margin-top: 40px;
-            width: 100%;
-        }
-
-        .logo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        .logo-item {
-            background-color: white;
-            height: 90px;
-            border-radius: 12px;
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #020617; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        
+        .logo-frame {
+            background: white;
+            padding: 4px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
+            height: 40px;
+            width: 40px;
+            overflow: hidden;
+        }
+        
+        .logo-frame img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
-        .logo-item img { max-width: 90%; max-height: 70%; object-fit: contain; }
+        .brand-logo-container {
+            height: 28px;
+            width: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .brand-logo-container { height: 40px; }
+            .logo-frame { height: 48px; width: 48px; padding: 8px; }
+        }
+
+        .brand-logo-container img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
     </style>
 </head>
-<body>
+<body class="antialiased custom-scrollbar">
 
-<div class="container">
-    <section class="stats-card">
-        <div class="stats-header">
-            <div class="header-left">
-                <div class="stats-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M2 6c.6.5 1.2 1 2.5 1 1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2.5-.5 2.5-.5M2 12c.6.5 1.2 1 2.5 1 1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2.5-.5 2.5-.5M2 18c.6.5 1.2 1 2.5 1 1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2-1 3.5-1s2.2 1 3.5 1c1.3 0 2.5-.5 2.5-.5"></path></svg>
+    <!-- Header / Navbar -->
+    <nav class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/50 px-4 md:px-6 py-2 md:py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- Brand Logo Integration -->
+                <a href="logo-invila.png" target="_blank" class="brand-logo-container block hover:opacity-80 transition-opacity">
+                    <img src="logo-invila.png" alt="Invila Logo" onerror="this.outerHTML='<div class=\'w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-xl flex items-center justify-center font-black text-white text-lg md:text-xl shadow-lg shadow-blue-600/40\'>I</div>'">
+                </a>
+                <div class="flex flex-col leading-tight">
+                    <span class="text-base md:text-xl font-extrabold tracking-tighter text-white uppercase">Invila<span class="text-blue-500">™</span></span>
+                    <span class="text-[7px] md:text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Water Technology Ecosystem</span>
                 </div>
-                <div>
-                    <h2 style="margin:0; font-size:1.1rem; text-transform:uppercase;">Akumulasi Kapasitas Terpasang</h2>
-                    <p style="margin:4px 0 0; font-size:0.8rem; color:var(--text-gray);">Rekam jejak sejak 2013</p>
-                </div>
+            </div>
+            <div class="hidden lg:flex items-center space-x-6 text-[11px] font-black uppercase tracking-widest text-slate-400">
+                <span class="text-blue-500">Experience Portfolio</span>
+                <span class="bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg shadow-blue-900/40">Trusted by Industry</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section: Compact & Optimized for One Mobile Screen -->
+    <section class="hero-gradient py-6 md:py-24 px-4 md:px-6 text-center border-b border-slate-900 flex flex-col justify-center min-h-[60vh] md:min-h-0">
+        <div class="max-w-5xl mx-auto w-full">
+            <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-3 py-1 md:px-4 md:py-2 rounded-full mb-3 md:mb-8">
+                <i data-lucide="shield-check" class="w-3 h-3 md:w-4 md:h-4 text-blue-500"></i>
+                <span class="text-[7px] md:text-[10px] font-black uppercase tracking-[0.3em] text-blue-400">Verified Performance Data</span>
             </div>
             
-            <button class="btn-restart" onclick="resetAndPlay()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
-                Turn On Water Meter
+            <h1 class="text-lg md:text-5xl font-black text-white mb-1 md:mb-6 tracking-tight leading-tight uppercase">
+                Total Akumulasi Kapasitas <br class="hidden sm:block"> Pengolahan Terpasang
+            </h1>
+            
+            <div class="flex flex-col items-center justify-center space-y-1 md:space-y-4 mb-6 md:mb-16">
+                <div class="flex flex-wrap items-baseline justify-center gap-1 md:gap-3">
+                    <span class="text-4xl sm:text-6xl md:text-8xl font-black text-white tabular-nums odometer" data-target="79154776">0</span>
+                    <!-- Huruf 'm' kecil secara konsisten -->
+                    <span class="text-lg sm:text-2xl md:text-4xl font-bold text-blue-500">m³/Tahun</span>
+                </div>
+            </div>
+
+            <!-- Single Line Stat Detail for Mobile -->
+            <div class="mb-6">
+                <p class="text-[9px] md:text-xs text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
+                    Setara ± <span class="text-white odometer" data-target="216862" data-decimals="1">0</span> m³/hari <br class="md:hidden">
+                    <span class="text-blue-500">9 SAPM Air Bersih (Diluar IPAL Medis)</span>
+                </p>
+            </div>
+
+            <!-- Recalculate Button - Compact -->
+            <button id="recalculate-btn" class="mx-auto flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/50 text-blue-400 hover:text-white px-4 py-2 md:px-6 md:py-3 rounded-lg md:rounded-2xl text-[8px] md:text-xs font-black uppercase tracking-widest transition-all active:scale-95 group shadow-lg shadow-blue-900/20">
+                <i data-lucide="refresh-cw" class="w-3 h-3 md:w-4 md:h-4 group-hover:rotate-180 transition-transform duration-500"></i>
+                <span>Recalculate Stats</span>
             </button>
         </div>
+    </section>
 
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-label">Kapasitas Per Bulan</div>
-                <div class="stat-value">
-                    <span class="odometer" data-target="6500700">0</span>
-                    <span class="stat-unit">m³</span>
-                </div>
+    <!-- Project List Section -->
+    <section class="py-10 md:py-20 px-4 md:px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+            <div>
+                <h2 class="text-xl md:text-2xl font-black text-white uppercase tracking-tight">Daftar Pengalaman Proyek</h2>
+                <p class="text-slate-500 text-xs md:text-sm mt-1">Rincian kapasitas instalasi di Indonesia.</p>
             </div>
-            <div class="stat-item">
-                <div class="stat-label">Kapasitas Per Tahun</div>
-                <div class="stat-value">
-                    <span class="odometer" data-target="78008400">0</span>
-                    <span class="stat-unit">m³</span>
-                </div>
+            <div class="hidden md:block h-px flex-1 mx-8 bg-slate-800"></div>
+            <div class="flex items-center space-x-2 text-blue-500">
+                <i data-lucide="layers" class="w-4 h-4 md:w-5 md:h-5"></i>
+                <span class="text-[10px] md:text-xs font-black uppercase tracking-widest text-right">SAPM MODULAR & RECYCLE</span>
             </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="project-container">
+            <!-- Projects injected via JS -->
         </div>
     </section>
 
-    <section class="partner-section">
-        <h3 style="color:white; margin-bottom:30px; opacity:0.7; font-size:0.8rem; letter-spacing:3px;">MITRA INDUSTRI STRATEGIS</h3>
-        <div class="logo-grid">
-            <div class="logo-item"><img src="cemerlang-samudra-kontrindo.png"></div>
-            <div class="logo-item"><img src="kievit.png"></div>
-            <div class="logo-item"><img src="kiw.png"></div>
-            <div class="logo-item"><img src="patria-maritim-perkasa.png"></div>
-            <div class="logo-item"><img src="petrokimia-gresik.png"></div>
-            <div class="logo-item"><img src="tirta-asasta-depok.png"></div>
-            <div class="logo-item"><img src="tirtanadi.png"></div>
-            <div class="logo-item"><img src="united-tractors.png"></div>
-            <div class="logo-item"><img src="wika.png"></div>
+    <!-- Footer -->
+    <footer class="bg-black py-12 px-4 md:px-6 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
+            <a href="logo-invila.png" target="_blank" class="brand-logo-container mb-6 block hover:opacity-100 opacity-80 transition-all">
+                <img src="logo-invila.png" alt="Invila Logo" onerror="this.outerHTML='<div class=\'w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center font-black text-white text-2xl\'>I</div>'">
+            </a>
+            <h3 class="text-lg md:text-2xl font-black text-white mb-4 italic tracking-tight uppercase">Menghasilkan Air Bersih dalam Skala Masif.</h3>
+            <p class="text-slate-400 text-[10px] md:text-sm max-w-xl mb-8 leading-relaxed">Kami melayani transformasi digital dan fisik untuk WTP, IPA, hingga Recycle Air Limbah dengan model bisnis Zero Capex yang fleksibel.</p>
+            
+            <p class="mt-12 text-[7px] md:text-[10px] font-black text-slate-700 uppercase tracking-[0.4em]">© 2026 INVILA TECHNOLOGY. ALL RIGHTS RESERVED.</p>
         </div>
-    </section>
-</div>
+    </footer>
 
-<script>
-    const formatNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    <script>
+        const projectData = [
+            { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", status: "IPA Baru", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
+            { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", status: "Uprating", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
+            { no: 3, name: "WTP PDAM Tirta Asasta Legong", loc: "Legong-Depok", client: "PDAM", status: "Uprating", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
+            { no: 4, name: "WTP PDAM Tirta Asasta Citayam", loc: "Citayam-Depok", client: "PDAM", status: "Uprating", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
+            { no: 5, name: "SAPM MODULAR Gunung Sari Petro Kimia", loc: "Surabaya", client: "PT Petro Kimia Gresik", status: "Bangunan Baru", cap: 71971, lps: 833, year: "2016", logo: "petrokimia-gresik.png", type: "SAPM" },
+            { no: 6, name: "SAPM MODULAR KI Wijayakusuma", loc: "Semarang", client: "PT Indisi", status: "Bangun Baru", cap: 4320, lps: 50, year: "2017–2018", logo: "kiw.png", type: "SAPM" },
+            { no: 7, name: "IPAL-IPA Recycle Kievit", loc: "Salatiga Plant", client: "PT Kievit Indonesia", status: "Recycle", cap: 259, lps: 3, year: "2017–2018", logo: "kievit.png", type: "RECYCLE" },
+            { no: 8, name: "SAPM MODULAR PT Kawasan Industri Wijayakusuma", loc: "Berbagai Site", client: "PT Kawasan Industri Wijayakusuma", status: "Operasional", cap: 2160, lps: 25, year: "2024", logo: "kiw.png", type: "SAPM" },
+            { no: 9, name: "Next-Gen Invila Implementation", loc: "Industrial Zone", client: "New Partners", status: "Planned 2026", cap: 0, lps: 0, year: "2026", logo: "", type: "FUTURE" }
+        ];
 
-    function animateOdometer(el) {
-        const target = +el.getAttribute('data-target');
-        const duration = 2500; 
-        const frameRate = 1000 / 60;
-        const totalFrames = Math.round(duration / frameRate);
-        let currentFrame = 0;
+        const typeIcons = { IPA: 'droplets', WTP: 'factory', SAPM: 'layers', RECYCLE: 'refresh-ccw', FUTURE: 'cpu' };
 
-        const count = () => {
-            currentFrame++;
-            const progress = currentFrame / totalFrames;
-            const easeOutQuad = 1 - (1 - progress) * (1 - progress);
-            const currentNumber = Math.round(target * easeOutQuad);
+        const container = document.getElementById('project-container');
+        projectData.forEach(p => {
+            const card = document.createElement('div');
+            card.className = "project-card p-5 rounded-[1.5rem] flex flex-col justify-between";
+            const logoContent = p.logo 
+                ? `<div class="logo-frame shadow-sm"><img src="logos/${p.logo}" alt="${p.client}" onerror="this.parentElement.innerHTML='<i data-lucide=\\'${typeIcons[p.type] || 'factory'}\\' class=\\'w-5 h-5 text-blue-500\\'></i>'"></div>`
+                : `<div class="p-2 bg-blue-600/10 rounded-xl text-blue-500"><i data-lucide="${typeIcons[p.type] || 'cpu'}" class="w-5 h-5"></i></div>`;
 
-            el.innerText = formatNumber(currentNumber);
+            card.innerHTML = `
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        ${logoContent}
+                        <span class="text-[8px] font-mono text-slate-500 tracking-tighter">${p.year}</span>
+                    </div>
+                    <p class="text-[8px] font-black text-blue-400 uppercase tracking-widest mb-1">${p.client}</p>
+                    <h3 class="text-sm font-bold text-white leading-tight mb-2 uppercase">${p.name}</h3>
+                    <p class="text-[9px] text-slate-500 mb-4 flex items-center">
+                        <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> ${p.loc}
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-800 flex justify-between items-end">
+                    <div>
+                        <p class="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-0.5">Kapasitas</p>
+                        <div class="flex items-baseline space-x-1">
+                            <span class="text-xl font-black text-white odometer" data-target="${p.cap}">0</span>
+                            <!-- Huruf 'm' kecil secara konsisten -->
+                            <span class="text-[9px] font-bold text-slate-500 tracking-tighter">m³/hari</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                         <div class="px-2 py-0.5 bg-slate-800 text-blue-500 rounded-full text-[8px] font-black uppercase tracking-tighter">
+                            ${p.lps} LPS
+                         </div>
+                    </div>
+                </div>`;
+            container.appendChild(card);
+        });
 
-            if (currentFrame < totalFrames) {
-                requestAnimationFrame(count);
-            } else {
-                el.innerText = formatNumber(target);
-            }
+        lucide.createIcons();
+
+        const animateOdometer = (el) => {
+            const target = parseFloat(el.getAttribute('data-target'));
+            const unit = el.getAttribute('data-unit') || '';
+            const duration = 1500;
+            const startTime = performance.now();
+            const update = (now) => {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                let currentVal = easeProgress * target;
+                if(el.hasAttribute('data-decimals')) {
+                    el.innerText = currentVal.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + unit;
+                } else {
+                    el.innerText = Math.floor(currentVal).toLocaleString('id-ID') + unit;
+                }
+                if (progress < 1) requestAnimationFrame(update);
+                else {
+                    if(el.hasAttribute('data-decimals')) {
+                        el.innerText = target.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + unit;
+                    } else {
+                        el.innerText = target.toLocaleString('id-ID') + unit;
+                    }
+                }
+            };
+            requestAnimationFrame(update);
         };
-        count();
-    }
 
-    function resetAndPlay() {
-        const elements = document.querySelectorAll('.odometer');
-        elements.forEach(el => {
-            el.innerText = "0"; // Reset ke nol dulu
-            setTimeout(() => animateOdometer(el), 100); // Putar lagi
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateOdometer(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.odometer').forEach(odo => observer.observe(odo));
+
+        document.getElementById('recalculate-btn').addEventListener('click', () => {
+            document.querySelectorAll('.odometer').forEach(odo => {
+                odo.innerText = "0";
+                animateOdometer(odo);
+            });
         });
-    }
-
-    // Jalankan otomatis saat pertama kali muncul di layar
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateOdometer(entry.target);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('.odometer').forEach(odo => observer.observe(odo));
-</script>
-
+    </script>
 </body>
 </html>
