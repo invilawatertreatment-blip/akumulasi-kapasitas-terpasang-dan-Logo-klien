@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Invila™ | Project Capacity Portfolio</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,6 +15,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #020617; /* Slate-950 */
             color: #f8fafc;
+            touch-action: manipulation;
         }
 
         .odometer {
@@ -26,35 +27,26 @@
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(51, 65, 85, 0.5);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @media (hover: hover) {
-            .project-card:hover {
-                border-color: #2563eb;
-                transform: translateY(-5px);
-                box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.3);
-            }
         }
 
         .hero-gradient {
-            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.15), transparent),
-                        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1), transparent);
+            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.12), transparent),
+                        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.08), transparent);
         }
 
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #020617; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
         
         .logo-frame {
             background: white;
             padding: 4px;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 40px;
-            width: 40px;
+            height: 36px;
+            width: 36px;
             overflow: hidden;
         }
         
@@ -64,126 +56,110 @@
             object-fit: contain;
         }
 
-        .brand-logo-container {
-            height: 28px;
-            width: auto;
-            display: flex;
-            align-items: center;
-        }
-
-        @media (min-width: 768px) {
-            .brand-logo-container { height: 40px; }
-            .logo-frame { height: 48px; width: 48px; padding: 8px; }
-        }
-
-        .brand-logo-container img {
-            height: 100%;
-            width: auto;
-            object-fit: contain;
+        /* Optimization for "Above the Fold" on Mobile */
+        @media (max-height: 700px) and (max-width: 640px) {
+            .hero-section { padding-top: 1rem; padding-bottom: 1.5rem; }
+            .hero-title { font-size: 1.1rem; margin-bottom: 0.5rem; }
+            .main-odometer { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body class="antialiased custom-scrollbar">
 
-    <!-- Header / Navbar -->
-    <nav class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/50 px-4 md:px-6 py-2 md:py-4">
+    <!-- Header / Navbar - Compact -->
+    <nav class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/50 px-4 py-2 md:py-3">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <!-- Brand Logo Integration -->
-                <a href="logo-invila.png" target="_blank" class="brand-logo-container block hover:opacity-80 transition-opacity">
-                    <img src="logo-invila.png" alt="Invila Logo" onerror="this.outerHTML='<div class=\'w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-xl flex items-center justify-center font-black text-white text-lg md:text-xl shadow-lg shadow-blue-600/40\'>I</div>'">
+                <!-- Logo Invila Link -->
+                <a href="logo-invila.png" target="_blank" class="block hover:opacity-80 transition-opacity">
+                    <img src="logo-invila.png" alt="Invila Logo" class="h-8 md:h-10 w-auto object-contain" onerror="this.outerHTML='<div class=\'w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-lg md:text-xl shadow-lg shadow-blue-600/40\'>I</div>'">
                 </a>
                 <div class="flex flex-col leading-tight">
-                    <span class="text-base md:text-xl font-extrabold tracking-tighter text-white uppercase">Invila<span class="text-blue-500">™</span></span>
-                    <span class="text-[7px] md:text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Water Technology Ecosystem</span>
+                    <span class="text-sm md:text-xl font-extrabold tracking-tighter text-white uppercase">Invila<span class="text-blue-500">™</span></span>
+                    <span class="text-[6px] md:text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Water Technology Ecosystem</span>
                 </div>
             </div>
-            <div class="hidden lg:flex items-center space-x-6 text-[11px] font-black uppercase tracking-widest text-slate-400">
-                <span class="text-blue-500">Experience Portfolio</span>
-                <span class="bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg shadow-blue-900/40">Trusted by Industry</span>
+            <div class="hidden lg:flex items-center space-x-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                <span class="text-blue-500">Portfolio</span>
+                <span class="bg-blue-600/10 text-blue-500 border border-blue-500/20 px-3 py-1.5 rounded-full">Trusted by Industry</span>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section: Compact & Optimized for One Mobile Screen -->
-    <section class="hero-gradient py-6 md:py-24 px-4 md:px-6 text-center border-b border-slate-900 flex flex-col justify-center min-h-[60vh] md:min-h-0">
+    <!-- Hero Section: Ultra-Compact for Mobile Android/iPhone -->
+    <section class="hero-section hero-gradient py-6 md:py-20 px-4 text-center border-b border-slate-900 flex flex-col justify-center min-h-[50vh] md:min-h-0">
         <div class="max-w-5xl mx-auto w-full">
-            <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-3 py-1 md:px-4 md:py-2 rounded-full mb-3 md:mb-8">
-                <i data-lucide="shield-check" class="w-3 h-3 md:w-4 md:h-4 text-blue-500"></i>
-                <span class="text-[7px] md:text-[10px] font-black uppercase tracking-[0.3em] text-blue-400">Verified Performance Data</span>
+            <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded-full mb-3 md:mb-6">
+                <i data-lucide="shield-check" class="w-3 h-3 text-blue-500"></i>
+                <span class="text-[7px] md:text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Verified Capacity</span>
             </div>
             
-            <h1 class="text-lg md:text-5xl font-black text-white mb-1 md:mb-6 tracking-tight leading-tight uppercase">
+            <h1 class="hero-title text-base md:text-5xl font-black text-white mb-2 md:mb-6 tracking-tight leading-tight uppercase">
                 Total Akumulasi Kapasitas <br class="hidden sm:block"> Pengolahan Terpasang
             </h1>
             
-            <div class="flex flex-col items-center justify-center space-y-1 md:space-y-4 mb-6 md:mb-16">
-                <div class="flex flex-wrap items-baseline justify-center gap-1 md:gap-3">
-                    <span class="text-4xl sm:text-6xl md:text-8xl font-black text-white tabular-nums odometer" data-target="79154776">0</span>
-                    <!-- Huruf 'm' kecil secara konsisten -->
-                    <span class="text-lg sm:text-2xl md:text-4xl font-bold text-blue-500">m³/Tahun</span>
+            <div class="flex flex-col items-center justify-center mb-4 md:mb-10">
+                <div class="flex items-baseline justify-center gap-1 md:gap-3">
+                    <span class="main-odometer text-4xl sm:text-6xl md:text-8xl font-black text-white tabular-nums odometer" data-target="79154776">0</span>
+                    <span class="text-base sm:text-2xl md:text-4xl font-bold text-blue-500">m³/Tahun</span>
+                </div>
+                
+                <div class="mt-2 md:mt-4 text-center">
+                    <p class="text-[9px] md:text-sm text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
+                        Setara ± <span class="text-white odometer" data-target="216862" data-decimals="1">0</span> m³/hari <br class="md:hidden">
+                        <span class="text-blue-500">9 Khusus SAPM Air Bersih (Diluar IPAL Medis)</span>
+                    </p>
                 </div>
             </div>
 
-            <!-- Single Line Stat Detail for Mobile -->
-            <div class="mb-6">
-                <p class="text-[9px] md:text-xs text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
-                    Setara ± <span class="text-white odometer" data-target="216862" data-decimals="1">0</span> m³/hari <br class="md:hidden">
-                    <span class="text-blue-500">9 SAPM Air Bersih (Diluar IPAL Medis)</span>
-                </p>
-            </div>
-
-            <!-- Recalculate Button - Compact -->
-            <button id="recalculate-btn" class="mx-auto flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/50 text-blue-400 hover:text-white px-4 py-2 md:px-6 md:py-3 rounded-lg md:rounded-2xl text-[8px] md:text-xs font-black uppercase tracking-widest transition-all active:scale-95 group shadow-lg shadow-blue-900/20">
-                <i data-lucide="refresh-cw" class="w-3 h-3 md:w-4 md:h-4 group-hover:rotate-180 transition-transform duration-500"></i>
-                <span>Recalculate Stats</span>
+            <!-- Compact Recalculate Button -->
+            <button id="recalculate-btn" class="mx-auto flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/50 text-blue-400 hover:text-white px-4 py-2 md:px-6 md:py-3 rounded-lg md:rounded-2xl text-[8px] md:text-xs font-black uppercase tracking-widest transition-all active:scale-95 group">
+                <i data-lucide="refresh-cw" class="w-3 h-3 md:w-4 md:h-4 group-hover:rotate-180 transition-transform"></i>
+                <span>Recalculate</span>
             </button>
         </div>
     </section>
 
-    <!-- Project List Section -->
-    <section class="py-10 md:py-20 px-4 md:px-6 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+    <!-- Project List: Responsive Grid -->
+    <section class="py-8 md:py-16 px-4 md:px-6 max-w-7xl mx-auto">
+        <div class="flex items-center justify-between mb-6 md:mb-10">
             <div>
-                <h2 class="text-xl md:text-2xl font-black text-white uppercase tracking-tight">Daftar Pengalaman Proyek</h2>
-                <p class="text-slate-500 text-xs md:text-sm mt-1">Rincian kapasitas instalasi di Indonesia.</p>
+                <h2 class="text-lg md:text-2xl font-black text-white uppercase tracking-tight">Pengalaman Proyek</h2>
+                <p class="text-slate-500 text-[9px] md:text-sm mt-0.5">Instalasi pengolahan di seluruh Indonesia.</p>
             </div>
-            <div class="hidden md:block h-px flex-1 mx-8 bg-slate-800"></div>
+            <div class="h-px flex-1 mx-4 md:mx-8 bg-slate-800"></div>
             <div class="flex items-center space-x-2 text-blue-500">
-                <i data-lucide="layers" class="w-4 h-4 md:w-5 md:h-5"></i>
-                <span class="text-[10px] md:text-xs font-black uppercase tracking-widest text-right">SAPM MODULAR & RECYCLE</span>
+                <i data-lucide="layers" class="w-4 h-4"></i>
+                <span class="text-[8px] md:text-xs font-black uppercase tracking-widest">SAPM & RECYCLE</span>
             </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="project-container">
-            <!-- Projects injected via JS -->
+            <!-- Project cards injected via JS -->
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-black py-12 px-4 md:px-6 border-t border-slate-900">
-        <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
-            <a href="logo-invila.png" target="_blank" class="brand-logo-container mb-6 block hover:opacity-100 opacity-80 transition-all">
-                <img src="logo-invila.png" alt="Invila Logo" onerror="this.outerHTML='<div class=\'w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center font-black text-white text-2xl\'>I</div>'">
-            </a>
-            <h3 class="text-lg md:text-2xl font-black text-white mb-4 italic tracking-tight uppercase">Menghasilkan Air Bersih dalam Skala Masif.</h3>
-            <p class="text-slate-400 text-[10px] md:text-sm max-w-xl mb-8 leading-relaxed">Kami melayani transformasi digital dan fisik untuk WTP, IPA, hingga Recycle Air Limbah dengan model bisnis Zero Capex yang fleksibel.</p>
-            
-            <p class="mt-12 text-[7px] md:text-[10px] font-black text-slate-700 uppercase tracking-[0.4em]">© 2026 INVILA TECHNOLOGY. ALL RIGHTS RESERVED.</p>
+    <!-- Footer: Clean & Professional -->
+    <footer class="bg-black py-10 px-4 md:px-6 border-t border-slate-900 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-base md:text-xl font-black text-white mb-3 italic tracking-tight uppercase">Menghasilkan Air Bersih dalam Skala Masif.</h3>
+            <p class="text-slate-400 text-[9px] md:text-sm mb-6 leading-relaxed">Transformasi digital dan fisik untuk WTP, IPA, hingga Recycle Air Limbah dengan model bisnis Zero Capex yang fleksibel.</p>
+            <p class="text-[7px] md:text-[10px] font-black text-slate-700 uppercase tracking-[0.4em]">© 2026 INVILA TECHNOLOGY. ALL RIGHTS RESERVED.</p>
         </div>
     </footer>
 
     <script>
+        // Data Proyek - Menggunakan jalur file langsung (GitHub Friendly)
         const projectData = [
-            { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", status: "IPA Baru", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
-            { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", status: "Uprating", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
-            { no: 3, name: "WTP PDAM Tirta Asasta Legong", loc: "Legong-Depok", client: "PDAM", status: "Uprating", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
-            { no: 4, name: "WTP PDAM Tirta Asasta Citayam", loc: "Citayam-Depok", client: "PDAM", status: "Uprating", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
-            { no: 5, name: "SAPM MODULAR Gunung Sari Petro Kimia", loc: "Surabaya", client: "PT Petro Kimia Gresik", status: "Bangunan Baru", cap: 71971, lps: 833, year: "2016", logo: "petrokimia-gresik.png", type: "SAPM" },
-            { no: 6, name: "SAPM MODULAR KI Wijayakusuma", loc: "Semarang", client: "PT Indisi", status: "Bangun Baru", cap: 4320, lps: 50, year: "2017–2018", logo: "kiw.png", type: "SAPM" },
-            { no: 7, name: "IPAL-IPA Recycle Kievit", loc: "Salatiga Plant", client: "PT Kievit Indonesia", status: "Recycle", cap: 259, lps: 3, year: "2017–2018", logo: "kievit.png", type: "RECYCLE" },
-            { no: 8, name: "SAPM MODULAR PT Kawasan Industri Wijayakusuma", loc: "Berbagai Site", client: "PT Kawasan Industri Wijayakusuma", status: "Operasional", cap: 2160, lps: 25, year: "2024", logo: "kiw.png", type: "SAPM" },
-            { no: 9, name: "Next-Gen Invila Implementation", loc: "Industrial Zone", client: "New Partners", status: "Planned 2026", cap: 0, lps: 0, year: "2026", logo: "", type: "FUTURE" }
+            { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
+            { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
+            { no: 3, name: "WTP PDAM Tirta Asasta Legong", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
+            { no: 4, name: "WTP PDAM Tirta Asasta Citayam", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
+            { no: 5, name: "SAPM Gunung Sari Petro Kimia", loc: "Surabaya", client: "PT Petro Kimia Gresik", cap: 71971, lps: 833, year: "2016", logo: "petrokimia-gresik.png", type: "SAPM" },
+            { no: 6, name: "SAPM KI Wijayakusuma", loc: "Semarang", client: "PT Indisi", cap: 4320, lps: 50, year: "2017–2018", logo: "kiw.png", type: "SAPM" },
+            { no: 7, name: "IPAL-IPA Recycle Kievit", loc: "Salatiga", client: "PT Kievit Indonesia", cap: 259, lps: 3, year: "2017–2018", logo: "kievit.png", type: "RECYCLE" },
+            { no: 8, name: "SAPM Patria Maritim Perkasa", loc: "Wijayakusuma", client: "PT PMP", cap: 2160, lps: 25, year: "2024", logo: "patria-maritim-perkasa.png", type: "SAPM" },
+            { no: 9, name: "SAPM KI Wijayakusuma Phase II", loc: "Semarang", client: "PT KIW", cap: 4320, lps: 50, year: "2026", logo: "kiw.png", type: "FUTURE" }
         ];
 
         const typeIcons = { IPA: 'droplets', WTP: 'factory', SAPM: 'layers', RECYCLE: 'refresh-ccw', FUTURE: 'cpu' };
@@ -191,34 +167,35 @@
         const container = document.getElementById('project-container');
         projectData.forEach(p => {
             const card = document.createElement('div');
-            card.className = "project-card p-5 rounded-[1.5rem] flex flex-col justify-between";
+            card.className = "project-card p-4 md:p-6 rounded-[1.2rem] md:rounded-[1.5rem] flex flex-col justify-between";
+            
+            // Perbaikan jalur gambar ke root agar langsung muncul di GitHub
             const logoContent = p.logo 
-                ? `<div class="logo-frame shadow-sm"><img src="logos/${p.logo}" alt="${p.client}" onerror="this.parentElement.innerHTML='<i data-lucide=\\'${typeIcons[p.type] || 'factory'}\\' class=\\'w-5 h-5 text-blue-500\\'></i>'"></div>`
-                : `<div class="p-2 bg-blue-600/10 rounded-xl text-blue-500"><i data-lucide="${typeIcons[p.type] || 'cpu'}" class="w-5 h-5"></i></div>`;
+                ? `<div class="logo-frame shadow-sm"><img src="${p.logo}" alt="${p.client}" onerror="this.parentElement.innerHTML='<i data-lucide=\\'${typeIcons[p.type] || 'factory'}\\' class=\\'w-5 h-5 text-blue-500\\'></i>'"></div>`
+                : `<div class="p-2 bg-blue-600/10 rounded-lg text-blue-500"><i data-lucide="${typeIcons[p.type] || 'cpu'}" class="w-5 h-5"></i></div>`;
 
             card.innerHTML = `
                 <div>
                     <div class="flex justify-between items-start mb-4">
                         ${logoContent}
-                        <span class="text-[8px] font-mono text-slate-500 tracking-tighter">${p.year}</span>
+                        <span class="text-[8px] font-mono text-slate-500">${p.year}</span>
                     </div>
-                    <p class="text-[8px] font-black text-blue-400 uppercase tracking-widest mb-1">${p.client}</p>
-                    <h3 class="text-sm font-bold text-white leading-tight mb-2 uppercase">${p.name}</h3>
-                    <p class="text-[9px] text-slate-500 mb-4 flex items-center">
+                    <p class="text-[7px] md:text-[9px] font-black text-blue-400 uppercase tracking-widest mb-0.5">${p.client}</p>
+                    <h3 class="text-xs md:text-base font-bold text-white leading-tight mb-2 uppercase">${p.name}</h3>
+                    <p class="text-[8px] md:text-[10px] text-slate-500 mb-4 flex items-center">
                         <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> ${p.loc}
                     </p>
                 </div>
-                <div class="pt-4 border-t border-slate-800 flex justify-between items-end">
+                <div class="pt-3 border-t border-slate-800 flex justify-between items-end">
                     <div>
-                        <p class="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-0.5">Kapasitas</p>
+                        <p class="text-[7px] font-black text-slate-500 uppercase tracking-widest mb-0.5">Kapasitas</p>
                         <div class="flex items-baseline space-x-1">
-                            <span class="text-xl font-black text-white odometer" data-target="${p.cap}">0</span>
-                            <!-- Huruf 'm' kecil secara konsisten -->
-                            <span class="text-[9px] font-bold text-slate-500 tracking-tighter">m³/hari</span>
+                            <span class="text-lg md:text-xl font-black text-white odometer" data-target="${p.cap}">0</span>
+                            <span class="text-[8px] md:text-[9px] font-bold text-slate-500">m³/hari</span>
                         </div>
                     </div>
                     <div class="text-right">
-                         <div class="px-2 py-0.5 bg-slate-800 text-blue-500 rounded-full text-[8px] font-black uppercase tracking-tighter">
+                         <div class="px-2 py-0.5 bg-slate-800 text-blue-500 rounded-full text-[7px] md:text-[9px] font-black uppercase tracking-tighter">
                             ${p.lps} LPS
                          </div>
                     </div>
