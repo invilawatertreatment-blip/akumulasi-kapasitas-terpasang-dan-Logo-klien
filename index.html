@@ -11,7 +11,7 @@
         
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #020617;
+            background-color: #020617; /* Slate-950 */
             color: #f8fafc;
             touch-action: pan-y;
         }
@@ -48,6 +48,12 @@
             max-height: 100%;
             object-fit: contain;
         }
+
+        @media (max-height: 700px) and (max-width: 640px) {
+            .hero-section { padding-top: 1rem; padding-bottom: 1.5rem; }
+            .hero-title { font-size: 1.1rem; margin-bottom: 0.5rem; }
+            .main-odometer { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body class="antialiased custom-scrollbar">
@@ -55,7 +61,9 @@
     <nav class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/50 px-4 py-2 md:py-3">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <img src="logo-invila.png" alt="Invila Logo" class="h-8 md:h-10 w-auto object-contain" onerror="this.outerHTML='<div class=\'w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-lg md:text-xl shadow-lg shadow-blue-600/40\'>I</div>'">
+                <a href="logo-invila.png" target="_blank" class="block hover:opacity-80 transition-opacity">
+                    <img src="logo-invila.png" alt="Invila Logo" class="h-8 md:h-10 w-auto object-contain" onerror="this.outerHTML='<div class=\'w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-lg md:text-xl shadow-lg shadow-blue-600/40\'>I</div>'">
+                </a>
                 <div class="flex flex-col leading-tight">
                     <span class="text-sm md:text-xl font-extrabold tracking-tighter text-white uppercase">Invila<span class="text-blue-500">™</span></span>
                     <span class="text-[6px] md:text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Water Technology Ecosystem</span>
@@ -75,44 +83,57 @@
                 <span class="text-[7px] md:text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Verified Capacity</span>
             </div>
             
-            <h1 class="text-base md:text-5xl font-black text-white mb-2 md:mb-6 tracking-tight leading-tight uppercase">
+            <h1 class="hero-title text-base md:text-5xl font-black text-white mb-2 md:mb-6 tracking-tight leading-tight uppercase">
                 Total Akumulasi Kapasitas <br class="hidden sm:block"> Pengolahan Terpasang
             </h1>
             
             <div class="flex flex-col items-center justify-center mb-4 md:mb-10">
                 <div class="flex items-baseline justify-center gap-1 md:gap-3">
-                    <span class="text-4xl sm:text-6xl md:text-8xl font-black text-white tabular-nums odometer" data-target="79154776">0</span>
+                    <span class="main-odometer text-4xl sm:text-6xl md:text-8xl font-black text-white tabular-nums odometer" data-target="79154776">0</span>
                     <span class="text-base sm:text-2xl md:text-4xl font-bold text-blue-500">m³/Tahun</span>
                 </div>
+                
                 <div class="mt-2 md:mt-4 text-center">
-                    <p class="text-[9px] md:text-sm text-slate-400 font-bold uppercase tracking-widest">
+                    <p class="text-[9px] md:text-sm text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
                         Setara ± <span class="text-white odometer" data-target="216862" data-decimals="1">0</span> m³/hari <br class="md:hidden">
                         <span class="text-blue-500">9 Khusus WTP Air Bersih (Diluar IPAL Medis)</span>
                     </p>
                 </div>
             </div>
 
-            <button id="re-animate-btn" class="mx-auto flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/50 text-blue-400 hover:text-white px-4 py-2 md:px-6 md:py-3 rounded-lg text-[8px] md:text-xs font-black uppercase tracking-widest transition-all">
-                <i data-lucide="refresh-cw" class="w-3 h-3 md:w-4 md:h-4"></i>
-                <span>Re-Animate</span>
+            <button id="recalculate-btn" class="mx-auto flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/50 text-blue-400 hover:text-white px-4 py-2 md:px-6 md:py-3 rounded-lg md:rounded-2xl text-[8px] md:text-xs font-black uppercase tracking-widest transition-all active:scale-95 group">
+                <i data-lucide="refresh-cw" class="w-3 h-3 md:w-4 md:h-4 group-hover:rotate-180 transition-transform"></i>
+                <span>Recalculate</span>
             </button>
         </div>
     </section>
 
     <section class="py-8 md:py-16 px-4 md:px-6 max-w-7xl mx-auto">
-        <h2 class="text-lg md:text-2xl font-black text-white uppercase tracking-tight mb-8">Pengalaman Proyek</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="project-container"></div>
+        <div class="flex items-center justify-between mb-6 md:mb-10">
+            <div>
+                <h2 class="text-lg md:text-2xl font-black text-white uppercase tracking-tight">Pengalaman Proyek</h2>
+                <p class="text-slate-500 text-[9px] md:text-sm mt-0.5">Instalasi pengolahan di seluruh Indonesia.</p>
+            </div>
+            <div class="h-px flex-1 mx-4 md:mx-8 bg-slate-800"></div>
+            <div class="flex items-center space-x-2 text-blue-500">
+                <i data-lucide="droplets" class="w-4 h-4"></i>
+                <span class="text-[8px] md:text-xs font-black uppercase tracking-widest">WTP & RECYCLE</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="project-container">
+            </div>
     </section>
 
     <footer class="bg-black py-10 px-4 md:px-6 border-t border-slate-900 text-center">
         <div class="max-w-4xl mx-auto">
-            <h3 class="text-base md:text-xl font-black text-white mb-3 italic uppercase">Menghasilkan Air Bersih dalam Skala Masif.</h3>
+            <h3 class="text-base md:text-xl font-black text-white mb-3 italic tracking-tight uppercase">Menghasilkan Air Bersih dalam Skala Masif.</h3>
+            <p class="text-slate-400 text-[9px] md:text-sm mb-6 leading-relaxed">Transformasi digital dan fisik untuk WTP, IPA, hingga Recycle Air Limbah dengan model bisnis Zero Capex yang fleksibel.</p>
             <p class="text-[7px] md:text-[10px] font-black text-slate-700 uppercase tracking-[0.4em]">© 2026 INVILA TECHNOLOGY. ALL RIGHTS RESERVED.</p>
         </div>
     </footer>
 
     <script>
-        // DATA LENGKAP + LOGO + SEMUA SAPM -> WTP
         const projectData = [
             { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
             { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
@@ -130,9 +151,7 @@
         
         projectData.forEach(p => {
             const card = document.createElement('div');
-            card.className = "project-card p-4 md:p-6 rounded-[1.2rem] flex flex-col justify-between";
-            
-            // Logika Rendering Logo
+            card.className = "project-card p-4 md:p-6 rounded-[1.2rem] md:rounded-[1.5rem] flex flex-col justify-between";
             const logoContent = `<div class="logo-frame shadow-sm"><img src="${p.logo}" alt="${p.client}" onerror="this.parentElement.innerHTML='<i data-lucide=\\'${typeIcons[p.type] || 'factory'}\\' class=\\'w-5 h-5 text-blue-500\\'></i>'"></div>`;
 
             card.innerHTML = `
@@ -143,4 +162,83 @@
                     </div>
                     <p class="text-[7px] md:text-[9px] font-black text-blue-400 uppercase tracking-widest mb-0.5">${p.client}</p>
                     <h3 class="text-xs md:text-base font-bold text-white leading-tight mb-2 uppercase">${p.name}</h3>
-                    <p class
+                    <p class="text-[8px] md:text-[10px] text-slate-500 mb-4 flex items-center">
+                        <i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> ${p.loc}
+                    </p>
+                </div>
+                <div class="pt-3 border-t border-slate-800 flex justify-between items-end">
+                    <div>
+                        <p class="text-[7px] font-black text-slate-500 uppercase tracking-widest mb-0.5">Kapasitas</p>
+                        <div class="flex items-baseline space-x-1">
+                            <span class="text-lg md:text-xl font-black text-white odometer" data-target="${p.cap}">0</span>
+                            <span class="text-[8px] md:text-[9px] font-bold text-slate-500">m³/hari</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                         <div class="px-2 py-0.5 bg-slate-800 text-blue-500 rounded-full text-[7px] md:text-[9px] font-black uppercase tracking-tighter">
+                            ${p.lps} LPS
+                         </div>
+                    </div>
+                </div>`;
+            container.appendChild(card);
+        });
+
+        lucide.createIcons();
+
+        // --- Logika Scrolling & Odometer ---
+        let scrollInterval;
+        let isUserInteracting = false;
+
+        const animateOdometer = (el) => {
+            const target = parseFloat(el.getAttribute('data-target'));
+            const duration = 2000;
+            const startTime = performance.now();
+            const update = (now) => {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const currentVal = progress * target;
+                if(el.hasAttribute('data-decimals')) {
+                    el.innerText = currentVal.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+                } else {
+                    el.innerText = Math.floor(currentVal).toLocaleString('id-ID');
+                }
+                if (progress < 1) requestAnimationFrame(update);
+            };
+            requestAnimationFrame(update);
+        };
+
+        const startAutoScroll = () => {
+            if (isUserInteracting) return;
+            scrollInterval = setInterval(() => {
+                window.scrollBy(0, 1.8); // Kecepatan disesuaikan
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    clearInterval(scrollInterval);
+                }
+            }, 16);
+        };
+
+        const stopAutoScroll = () => {
+            isUserInteracting = true;
+            clearInterval(scrollInterval);
+        };
+
+        // Deteksi interaksi manual untuk menghentikan auto-scroll
+        window.addEventListener('wheel', stopAutoScroll, { passive: true });
+        window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+        window.addEventListener('mousedown', stopAutoScroll);
+
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.odometer').forEach(odo => animateOdometer(odo));
+            setTimeout(startAutoScroll, 3000); // Mulai scroll setelah 3 detik
+        });
+
+        document.getElementById('recalculate-btn').addEventListener('click', () => {
+            stopAutoScroll();
+            document.querySelectorAll('.odometer').forEach(odo => {
+                odo.innerText = "0";
+                animateOdometer(odo);
+            });
+        });
+    </script>
+</body>
+</html>
