@@ -13,7 +13,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #020617; /* Slate-950 */
             color: #f8fafc;
-            touch-action: manipulation;
+            touch-action: pan-y; /* Mengizinkan scroll manual dengan baik */
         }
 
         .odometer {
@@ -54,7 +54,6 @@
             object-fit: contain;
         }
 
-        /* Optimization for "Above the Fold" on Mobile */
         @media (max-height: 700px) and (max-width: 640px) {
             .hero-section { padding-top: 1rem; padding-bottom: 1.5rem; }
             .hero-title { font-size: 1.1rem; margin-bottom: 0.5rem; }
@@ -67,22 +66,18 @@
     <nav class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/50 px-4 py-2 md:py-3">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <a href="logo-invila.png" target="_blank" class="block hover:opacity-80 transition-opacity">
-                    <img src="logo-invila.png" alt="Invila Logo" class="h-8 md:h-10 w-auto object-contain" onerror="this.outerHTML='<div class=\'w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-lg md:text-xl shadow-lg shadow-blue-600/40\'>I</div>'">
-                </a>
                 <div class="flex flex-col leading-tight">
                     <span class="text-sm md:text-xl font-extrabold tracking-tighter text-white uppercase">Invila<span class="text-blue-500">™</span></span>
                     <span class="text-[6px] md:text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Water Technology Ecosystem</span>
                 </div>
             </div>
-            <div class="hidden lg:flex items-center space-x-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
+            <div class="flex items-center space-x-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
                 <span class="text-blue-500">Portfolio</span>
-                <span class="bg-blue-600/10 text-blue-500 border border-blue-500/20 px-3 py-1.5 rounded-full">Trusted by Industry</span>
             </div>
         </div>
     </nav>
 
-    <section class="hero-section hero-gradient py-6 md:py-20 px-4 text-center border-b border-slate-900 flex flex-col justify-center min-h-[50vh] md:min-h-0">
+    <section class="hero-section hero-gradient py-6 md:py-20 px-4 text-center border-b border-slate-900 flex flex-col justify-center min-h-[50vh]">
         <div class="max-w-5xl mx-auto w-full">
             <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded-full mb-3 md:mb-6">
                 <i data-lucide="shield-check" class="w-3 h-3 text-blue-500"></i>
@@ -109,7 +104,7 @@
 
             <button id="recalculate-btn" class="mx-auto flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/50 text-blue-400 hover:text-white px-4 py-2 md:px-6 md:py-3 rounded-lg md:rounded-2xl text-[8px] md:text-xs font-black uppercase tracking-widest transition-all active:scale-95 group">
                 <i data-lucide="refresh-cw" class="w-3 h-3 md:w-4 md:h-4 group-hover:rotate-180 transition-transform"></i>
-                <span>Recalculate</span>
+                <span>Re-Animate</span>
             </button>
         </div>
     </section>
@@ -134,22 +129,22 @@
     <footer class="bg-black py-10 px-4 md:px-6 border-t border-slate-900 text-center">
         <div class="max-w-4xl mx-auto">
             <h3 class="text-base md:text-xl font-black text-white mb-3 italic tracking-tight uppercase">Menghasilkan Air Bersih dalam Skala Masif.</h3>
-            <p class="text-slate-400 text-[9px] md:text-sm mb-6 leading-relaxed">Transformasi digital dan fisik untuk WTP, IPA, hingga Recycle Air Limbah dengan model bisnis Zero Capex yang fleksibel.</p>
+            <p class="text-slate-400 text-[9px] md:text-sm mb-6 leading-relaxed">Transformasi digital dan fisik untuk WTP, IPA, hingga Recycle Air Limbah.</p>
             <p class="text-[7px] md:text-[10px] font-black text-slate-700 uppercase tracking-[0.4em]">© 2026 INVILA TECHNOLOGY. ALL RIGHTS RESERVED.</p>
         </div>
     </footer>
 
     <script>
         const projectData = [
-            { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
-            { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
-            { no: 3, name: "WTP PDAM Tirta Asasta Legong", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
-            { no: 4, name: "WTP PDAM Tirta Asasta Citayam", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
-            { no: 5, name: "SAPM Gunung Sari Petro Kimia", loc: "Surabaya", client: "PT Petro Kimia Gresik", cap: 71971, lps: 833, year: "2016", logo: "petrokimia-gresik.png", type: "SAPM" },
-            { no: 6, name: "SAPM KI Wijayakusuma", loc: "Semarang", client: "PT Indisi", cap: 4320, lps: 50, year: "2017–2018", logo: "kiw.png", type: "SAPM" },
-            { no: 7, name: "IPAL-IPA Recycle Kievit", loc: "Salatiga", client: "PT Kievit Indonesia", cap: 259, lps: 3, year: "2017–2018", logo: "kievit.png", type: "RECYCLE" },
-            { no: 8, name: "SAPM Patria Maritim Perkasa", loc: "Wijayakusuma", client: "PT PMP", cap: 2160, lps: 25, year: "2024", logo: "patria-maritim-perkasa.png", type: "SAPM" },
-            { no: 9, name: "SAPM KI Wijayakusuma Phase II", loc: "Semarang", client: "PT KIW", cap: 4320, lps: 50, year: "2026", logo: "kiw.png", type: "FUTURE" }
+            { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", type: "IPA" },
+            { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", type: "IPA" },
+            { no: 3, name: "WTP PDAM Tirta Asasta Legong", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", type: "WTP" },
+            { no: 4, name: "WTP PDAM Tirta Asasta Citayam", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", type: "WTP" },
+            { no: 5, name: "SAPM Gunung Sari Petro Kimia", loc: "Surabaya", client: "PT Petro Kimia Gresik", cap: 71971, lps: 833, year: "2016", type: "SAPM" },
+            { no: 6, name: "SAPM KI Wijayakusuma", loc: "Semarang", client: "PT Indisi", cap: 4320, lps: 50, year: "2017–2018", type: "SAPM" },
+            { no: 7, name: "IPAL-IPA Recycle Kievit", loc: "Salatiga", client: "PT Kievit Indonesia", cap: 259, lps: 3, year: "2017–2018", type: "RECYCLE" },
+            { no: 8, name: "SAPM Patria Maritim Perkasa", loc: "Wijayakusuma", client: "PT PMP", cap: 2160, lps: 25, year: "2024", type: "SAPM" },
+            { no: 9, name: "SAPM KI Wijayakusuma Phase II", loc: "Semarang", client: "PT KIW", cap: 4320, lps: 50, year: "2026", type: "FUTURE" }
         ];
 
         const typeIcons = { IPA: 'droplets', WTP: 'factory', SAPM: 'layers', RECYCLE: 'refresh-ccw', FUTURE: 'cpu' };
@@ -158,14 +153,10 @@
         projectData.forEach(p => {
             const card = document.createElement('div');
             card.className = "project-card p-4 md:p-6 rounded-[1.2rem] md:rounded-[1.5rem] flex flex-col justify-between";
-            const logoContent = p.logo 
-                ? `<div class="logo-frame shadow-sm"><img src="${p.logo}" alt="${p.client}" onerror="this.parentElement.innerHTML='<i data-lucide=\\'${typeIcons[p.type] || 'factory'}\\' class=\\'w-5 h-5 text-blue-500\\'></i>'"></div>`
-                : `<div class="p-2 bg-blue-600/10 rounded-lg text-blue-500"><i data-lucide="${typeIcons[p.type] || 'cpu'}" class="w-5 h-5"></i></div>`;
-
             card.innerHTML = `
                 <div>
                     <div class="flex justify-between items-start mb-4">
-                        ${logoContent}
+                        <div class="p-2 bg-blue-600/10 rounded-lg text-blue-500"><i data-lucide="${typeIcons[p.type]}" class="w-5 h-5"></i></div>
                         <span class="text-[8px] font-mono text-slate-500">${p.year}</span>
                     </div>
                     <p class="text-[7px] md:text-[9px] font-black text-blue-400 uppercase tracking-widest mb-0.5">${p.client}</p>
@@ -193,68 +184,76 @@
 
         lucide.createIcons();
 
-        // --- Logika Auto Scroll & Redirect ---
+        // --- Logika Auto Scroll yang Dapat Diinterupsi ---
+        let isAutoScrolling = true;
+        let animationFrameId;
+
+        const stopAutoFlow = () => {
+            isAutoScrolling = false;
+            cancelAnimationFrame(animationFrameId);
+        };
+
+        // Deteksi interaksi user untuk mematikan auto-scroll
+        window.addEventListener('wheel', stopAutoFlow);
+        window.addEventListener('touchstart', stopAutoFlow);
+        window.addEventListener('mousedown', stopAutoFlow);
+
         const startAutoFlow = () => {
-            const scrollDuration = 4000; // 4 detik durasi scroll ke bawah
-            const targetUrl = "https://invilawatertreatment-blip.github.io/McKinsey-Global-/";
+            if (!isAutoScrolling) return;
+            
+            const scrollDuration = 12000; // Lebih lambat agar enak dilihat (12 detik)
             const startTimestamp = performance.now();
             const startScrollY = window.scrollY;
             const targetScrollY = document.body.scrollHeight - window.innerHeight;
 
             function step(now) {
+                if (!isAutoScrolling) return;
+
                 const elapsed = now - startTimestamp;
                 const progress = Math.min(elapsed / scrollDuration, 1);
                 
-                // Animasi scroll halus
+                // Linear scroll
                 window.scrollTo(0, startScrollY + (targetScrollY * progress));
 
                 if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                } else {
-                    // Redirect setelah jeda singkat di bawah
-                    setTimeout(() => {
-                        window.location.href = targetUrl;
-                    }, 500);
+                    animationFrameId = window.requestAnimationFrame(step);
                 }
             }
-            window.requestAnimationFrame(step);
+            animationFrameId = window.requestAnimationFrame(step);
         };
 
         const animateOdometer = (el) => {
             const target = parseFloat(el.getAttribute('data-target'));
-            const unit = el.getAttribute('data-unit') || '';
-            const duration = 1500;
+            const duration = 2000;
             const startTime = performance.now();
             const update = (now) => {
                 const elapsed = now - startTime;
                 const progress = Math.min(elapsed / duration, 1);
-                const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                const easeProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease out
                 let currentVal = easeProgress * target;
+                
                 if(el.hasAttribute('data-decimals')) {
-                    el.innerText = currentVal.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + unit;
+                    el.innerText = currentVal.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
                 } else {
-                    el.innerText = Math.floor(currentVal).toLocaleString('id-ID') + unit;
+                    el.innerText = Math.floor(currentVal).toLocaleString('id-ID');
                 }
                 if (progress < 1) requestAnimationFrame(update);
             };
             requestAnimationFrame(update);
         };
 
-        // Jalankan animasi & persiapan scroll
         window.addEventListener('load', () => {
-            // Animasikan semua odometer segera
             document.querySelectorAll('.odometer').forEach(odo => animateOdometer(odo));
-            
-            // Tunggu sebentar agar user melihat angka berubah, lalu mulai scroll
-            setTimeout(startAutoFlow, 2500);
+            // Mulai scroll otomatis setelah 3 detik
+            setTimeout(startAutoFlow, 3000);
         });
 
         document.getElementById('recalculate-btn').addEventListener('click', () => {
+            stopAutoFlow(); // Matikan scroll jika tombol ditekan
             document.querySelectorAll('.odometer').forEach(odo => {
                 odo.innerText = "0";
                 animateOdometer(odo);
             });
-            setTimeout(startAutoFlow, 2000);
         });
     </script>
 </body>
