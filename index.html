@@ -14,14 +14,12 @@
             background-color: #020617;
             color: #f8fafc;
             touch-action: pan-y;
-            overflow-x: hidden;
         }
 
         .project-card {
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(51, 65, 85, 0.5);
-            transition: transform 0.3s ease;
         }
 
         .hero-gradient {
@@ -32,6 +30,24 @@
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #020617; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        
+        .logo-frame {
+            background: white;
+            padding: 4px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 36px;
+            width: 36px;
+            overflow: hidden;
+        }
+        
+        .logo-frame img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body class="antialiased custom-scrollbar">
@@ -39,12 +55,13 @@
     <nav class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/50 px-4 py-2 md:py-3">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3">
+                <img src="logo-invila.png" alt="Invila Logo" class="h-8 md:h-10 w-auto object-contain" onerror="this.outerHTML='<div class=\'w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-lg md:text-xl shadow-lg shadow-blue-600/40\'>I</div>'">
                 <div class="flex flex-col leading-tight">
                     <span class="text-sm md:text-xl font-extrabold tracking-tighter text-white uppercase">Invila<span class="text-blue-500">™</span></span>
                     <span class="text-[6px] md:text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Water Technology Ecosystem</span>
                 </div>
             </div>
-            <button onclick="window.history.back()" class="flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 text-blue-400 hover:text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase transition-all active:scale-95">
+            <button onclick="window.history.back()" class="flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 text-blue-400 hover:text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase transition-all">
                 <i data-lucide="arrow-left" class="w-3 h-3"></i>
                 <span>Back</span>
             </button>
@@ -83,13 +100,7 @@
     </section>
 
     <section class="py-8 md:py-16 px-4 md:px-6 max-w-7xl mx-auto">
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-lg md:text-2xl font-black text-white uppercase tracking-tight">Pengalaman Proyek</h2>
-            <div class="flex items-center space-x-2 text-blue-500">
-                <i data-lucide="droplets" class="w-4 h-4"></i>
-                <span class="text-[8px] md:text-xs font-black uppercase tracking-widest">WTP & RECYCLE</span>
-            </div>
-        </div>
+        <h2 class="text-lg md:text-2xl font-black text-white uppercase tracking-tight mb-8">Pengalaman Proyek</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="project-container"></div>
     </section>
 
@@ -101,17 +112,17 @@
     </footer>
 
     <script>
-        // DATA UPDATED: Semua SAPM diganti menjadi WTP
+        // DATA LENGKAP + LOGO + SEMUA SAPM -> WTP
         const projectData = [
-            { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", type: "IPA" },
-            { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", type: "IPA" },
-            { no: 3, name: "WTP PDAM Tirta Asasta Legong", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", type: "WTP" },
-            { no: 4, name: "WTP PDAM Tirta Asasta Citayam", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", type: "WTP" },
-            { no: 5, name: "WTP Gunung Sari Petro Kimia", loc: "Surabaya", client: "PT Petro Kimia Gresik", cap: 71971, lps: 833, year: "2016", type: "WTP" },
-            { no: 6, name: "WTP KI Wijayakusuma", loc: "Semarang", client: "PT Indisi", cap: 4320, lps: 50, year: "2017–2018", type: "WTP" },
-            { no: 7, name: "IPAL-IPA Recycle Kievit", loc: "Salatiga", client: "PT Kievit Indonesia", cap: 259, lps: 3, year: "2017–2018", type: "RECYCLE" },
-            { no: 8, name: "WTP Patria Maritim Perkasa", loc: "Wijayakusuma", client: "PT PMP", cap: 2160, lps: 25, year: "2024", type: "WTP" },
-            { no: 9, name: "WTP KI Wijayakusuma Phase II", loc: "Semarang", client: "PT KIW", cap: 4320, lps: 50, year: "2026", type: "FUTURE" }
+            { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
+            { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
+            { no: 3, name: "WTP PDAM Tirta Asasta Legong", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
+            { no: 4, name: "WTP PDAM Tirta Asasta Citayam", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
+            { no: 5, name: "WTP Gunung Sari Petro Kimia", loc: "Surabaya", client: "PT Petro Kimia Gresik", cap: 71971, lps: 833, year: "2016", logo: "petrokimia-gresik.png", type: "WTP" },
+            { no: 6, name: "WTP KI Wijayakusuma", loc: "Semarang", client: "PT Indisi", cap: 4320, lps: 50, year: "2017–2018", logo: "kiw.png", type: "WTP" },
+            { no: 7, name: "IPAL-IPA Recycle Kievit", loc: "Salatiga", client: "PT Kievit Indonesia", cap: 259, lps: 3, year: "2017–2018", logo: "kievit.png", type: "RECYCLE" },
+            { no: 8, name: "WTP Patria Maritim Perkasa", loc: "Wijayakusuma", client: "PT PMP", cap: 2160, lps: 25, year: "2024", logo: "patria-maritim-perkasa.png", type: "WTP" },
+            { no: 9, name: "WTP KI Wijayakusuma Phase II", loc: "Semarang", client: "PT KIW", cap: 4320, lps: 50, year: "2026", logo: "kiw.png", type: "FUTURE" }
         ];
 
         const typeIcons = { IPA: 'droplets', WTP: 'factory', RECYCLE: 'refresh-ccw', FUTURE: 'cpu' };
@@ -120,83 +131,16 @@
         projectData.forEach(p => {
             const card = document.createElement('div');
             card.className = "project-card p-4 md:p-6 rounded-[1.2rem] flex flex-col justify-between";
+            
+            // Logika Rendering Logo
+            const logoContent = `<div class="logo-frame shadow-sm"><img src="${p.logo}" alt="${p.client}" onerror="this.parentElement.innerHTML='<i data-lucide=\\'${typeIcons[p.type] || 'factory'}\\' class=\\'w-5 h-5 text-blue-500\\'></i>'"></div>`;
+
             card.innerHTML = `
                 <div>
                     <div class="flex justify-between items-start mb-4">
-                        <div class="p-2 bg-blue-600/10 rounded-lg text-blue-500"><i data-lucide="${typeIcons[p.type] || 'factory'}" class="w-5 h-5"></i></div>
+                        ${logoContent}
                         <span class="text-[8px] font-mono text-slate-500">${p.year}</span>
                     </div>
                     <p class="text-[7px] md:text-[9px] font-black text-blue-400 uppercase tracking-widest mb-0.5">${p.client}</p>
                     <h3 class="text-xs md:text-base font-bold text-white leading-tight mb-2 uppercase">${p.name}</h3>
-                    <p class="text-[8px] md:text-[10px] text-slate-500 mb-4 flex items-center"><i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> ${p.loc}</p>
-                </div>
-                <div class="pt-3 border-t border-slate-800 flex justify-between items-end">
-                    <div>
-                        <p class="text-[7px] font-black text-slate-500 uppercase tracking-widest mb-0.5">Kapasitas</p>
-                        <div class="flex items-baseline space-x-1">
-                            <span class="text-lg md:text-xl font-black text-white">${p.cap.toLocaleString('id-ID')}</span>
-                            <span class="text-[8px] md:text-[9px] font-bold text-slate-500">m³/hari</span>
-                        </div>
-                    </div>
-                    <div class="px-2 py-0.5 bg-slate-800 text-blue-500 rounded-full text-[7px] md:text-[9px] font-black uppercase">${p.lps} LPS</div>
-                </div>`;
-            container.appendChild(card);
-        });
-
-        lucide.createIcons();
-
-        // --- Logika Odometer ---
-        function animateOdometer(el) {
-            const target = parseFloat(el.getAttribute('data-target'));
-            const duration = 2000;
-            const startTime = performance.now();
-            const update = (now) => {
-                const elapsed = now - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const currentVal = progress * target;
-                if(el.hasAttribute('data-decimals')) {
-                    el.innerText = currentVal.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-                } else {
-                    el.innerText = Math.floor(currentVal).toLocaleString('id-ID');
-                }
-                if (progress < 1) requestAnimationFrame(update);
-            };
-            requestAnimationFrame(update);
-        }
-
-        // --- Logika Auto Scroll (Lebih Cepat & Interuptible) ---
-        let scrollInterval;
-        let isStopped = false;
-
-        function startAutoScroll() {
-            if (isStopped) return;
-            scrollInterval = setInterval(() => {
-                window.scrollBy(0, 1.5); // Dipercepat (dari 1 ke 1.5)
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                    clearInterval(scrollInterval);
-                }
-            }, 20); // Interval diperkecil (dari 30ms ke 20ms) untuk kehalusan
-        }
-
-        function stopAutoScroll() {
-            isStopped = true;
-            clearInterval(scrollInterval);
-        }
-
-        // Deteksi Interaksi Manual untuk menghentikan auto-scroll
-        window.addEventListener('wheel', stopAutoScroll, { passive: true });
-        window.addEventListener('touchstart', stopAutoScroll, { passive: true });
-        window.addEventListener('mousedown', stopAutoScroll);
-
-        window.addEventListener('load', () => {
-            document.querySelectorAll('.odometer').forEach(animateOdometer);
-            setTimeout(startAutoScroll, 2500); // Mulai scroll otomatis setelah 2.5 detik
-        });
-
-        document.getElementById('re-animate-btn').addEventListener('click', () => {
-            stopAutoScroll();
-            document.querySelectorAll('.odometer').forEach(animateOdometer);
-        });
-    </script>
-</body>
-</html>
+                    <p class
