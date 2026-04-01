@@ -13,8 +13,6 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #020617;
             color: #f8fafc;
-            /* Mengizinkan scroll manual sepenuhnya */
-            overflow-y: auto; 
             touch-action: pan-y;
         }
 
@@ -32,6 +30,18 @@
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #020617; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        
+        .logo-frame {
+            background: white;
+            padding: 4px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 36px;
+            width: 36px;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="antialiased custom-scrollbar">
@@ -44,73 +54,105 @@
                     <span class="text-[6px] md:text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Water Technology Ecosystem</span>
                 </div>
             </div>
-            
-            <button onclick="window.history.back()" class="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase transition-all">
+            <button onclick="window.history.back()" class="flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 text-blue-400 hover:text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase transition-all">
                 <i data-lucide="arrow-left" class="w-3 h-3"></i>
-                <span>Kembali</span>
+                <span>Back</span>
             </button>
         </div>
     </nav>
 
-    <section class="hero-section hero-gradient py-6 md:py-20 px-4 text-center border-b border-slate-900 flex flex-col justify-center min-h-[60vh]">
+    <section class="hero-section hero-gradient py-6 md:py-20 px-4 text-center border-b border-slate-900 flex flex-col justify-center min-h-[50vh]">
         <div class="max-w-5xl mx-auto w-full">
-            <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded-full mb-6">
+            <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded-full mb-3 md:mb-6">
                 <i data-lucide="shield-check" class="w-3 h-3 text-blue-500"></i>
-                <span class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Verified Capacity</span>
+                <span class="text-[7px] md:text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Verified Capacity</span>
             </div>
             
-            <h1 class="text-xl md:text-5xl font-black text-white mb-6 tracking-tight uppercase leading-tight">
-                Total Akumulasi Kapasitas <br> Pengolahan Terpasang
+            <h1 class="text-base md:text-5xl font-black text-white mb-2 md:mb-6 tracking-tight leading-tight uppercase">
+                Total Akumulasi Kapasitas <br class="hidden sm:block"> Pengolahan Terpasang
             </h1>
             
-            <div class="flex flex-col items-center justify-center mb-10">
-                <div class="flex items-baseline justify-center gap-2">
-                    <span class="text-5xl md:text-8xl font-black text-white tabular-nums odometer" data-target="79154776">0</span>
-                    <span class="text-xl md:text-4xl font-bold text-blue-500">m³/Thn</span>
+            <div class="flex flex-col items-center justify-center mb-4 md:mb-10">
+                <div class="flex items-baseline justify-center gap-1 md:gap-3">
+                    <span class="text-4xl sm:text-6xl md:text-8xl font-black text-white tabular-nums odometer" data-target="79154776">0</span>
+                    <span class="text-base sm:text-2xl md:text-4xl font-bold text-blue-500">m³/Tahun</span>
                 </div>
-                <p class="mt-4 text-[10px] md:text-sm text-slate-400 font-bold uppercase tracking-widest">
-                    Setara ± <span class="text-white odometer" data-target="216862" data-decimals="1">0</span> m³/hari
-                </p>
+                <div class="mt-2 md:mt-4 text-center">
+                    <p class="text-[9px] md:text-sm text-slate-400 font-bold uppercase tracking-widest">
+                        Setara ± <span class="text-white odometer" data-target="216862" data-decimals="1">0</span> m³/hari
+                    </p>
+                </div>
             </div>
 
-            <button id="re-animate-btn" class="mx-auto flex items-center space-x-2 bg-blue-600/20 hover:bg-blue-600 border border-blue-500/50 text-blue-400 hover:text-white px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all active:scale-95">
-                <i data-lucide="play" class="w-4 h-4"></i>
-                <span>Re-Animate Numbers</span>
+            <button id="re-animate-btn" class="mx-auto flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/50 text-blue-400 hover:text-white px-4 py-2 md:px-6 md:py-3 rounded-lg text-[8px] md:text-xs font-black uppercase tracking-widest transition-all">
+                <i data-lucide="refresh-cw" class="w-3 h-3 md:w-4 md:h-4"></i>
+                <span>Re-Animate</span>
             </button>
         </div>
     </section>
 
-    <section class="py-12 px-4 max-w-7xl mx-auto">
-        <h2 class="text-lg md:text-2xl font-black text-white uppercase mb-8">Project Portfolio</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="project-container"></div>
+    <section class="py-8 md:py-16 px-4 md:px-6 max-w-7xl mx-auto">
+        <h2 class="text-lg md:text-2xl font-black text-white uppercase tracking-tight mb-8">Pengalaman Proyek</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="project-container"></div>
     </section>
 
+    <footer class="bg-black py-10 px-4 md:px-6 border-t border-slate-900 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-base md:text-xl font-black text-white mb-3 italic uppercase">Menghasilkan Air Bersih dalam Skala Masif.</h3>
+            <p class="text-[7px] md:text-[10px] font-black text-slate-700 uppercase tracking-[0.4em]">© 2026 INVILA TECHNOLOGY. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
     <script>
-        // Data Proyek (Hanya contoh 3 untuk mempersingkat tampilan kode)
+        // DATA LENGKAP DIKEMBALIKAN
         const projectData = [
-            { name: "Clarifier 6 PDAM Tirtanadi", client: "PDAM Tirtanadi", cap: 43200, type: "IPA", year: "2014" },
-            { name: "WTP PDAM Tirta Asasta", client: "PDAM Depok", cap: 25920, type: "WTP", year: "2016" },
-            { name: "SAPM Petro Kimia", client: "PT Petro Kimia", cap: 71971, type: "SAPM", year: "2016" }
+            { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
+            { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
+            { no: 3, name: "WTP PDAM Tirta Asasta Legong", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
+            { no: 4, name: "WTP PDAM Tirta Asasta Citayam", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
+            { no: 5, name: "SAPM Gunung Sari Petro Kimia", loc: "Surabaya", client: "PT Petro Kimia Gresik", cap: 71971, lps: 833, year: "2016", logo: "petrokimia-gresik.png", type: "SAPM" },
+            { no: 6, name: "SAPM KI Wijayakusuma", loc: "Semarang", client: "PT Indisi", cap: 4320, lps: 50, year: "2017–2018", logo: "kiw.png", type: "SAPM" },
+            { no: 7, name: "IPAL-IPA Recycle Kievit", loc: "Salatiga", client: "PT Kievit Indonesia", cap: 259, lps: 3, year: "2017–2018", logo: "kievit.png", type: "RECYCLE" },
+            { no: 8, name: "SAPM Patria Maritim Perkasa", loc: "Wijayakusuma", client: "PT PMP", cap: 2160, lps: 25, year: "2024", logo: "patria-maritim-perkasa.png", type: "SAPM" },
+            { no: 9, name: "SAPM KI Wijayakusuma Phase II", loc: "Semarang", client: "PT KIW", cap: 4320, lps: 50, year: "2026", logo: "kiw.png", type: "FUTURE" }
         ];
 
+        const typeIcons = { IPA: 'droplets', WTP: 'factory', SAPM: 'layers', RECYCLE: 'refresh-ccw', FUTURE: 'cpu' };
         const container = document.getElementById('project-container');
+        
         projectData.forEach(p => {
-            container.innerHTML += `
-                <div class="project-card p-6 rounded-2xl">
-                    <span class="text-[8px] font-mono text-slate-500">${p.year}</span>
-                    <p class="text-[9px] font-black text-blue-400 uppercase mt-1">${p.client}</p>
-                    <h3 class="text-base font-bold text-white mb-4 uppercase">${p.name}</h3>
-                    <div class="pt-3 border-t border-slate-800">
-                        <p class="text-[7px] font-black text-slate-500 uppercase">Kapasitas</p>
-                        <span class="text-xl font-black text-white">${p.cap.toLocaleString('id-ID')}</span> <span class="text-[9px] text-slate-500">m³/hari</span>
+            const card = document.createElement('div');
+            card.className = "project-card p-4 md:p-6 rounded-[1.2rem] flex flex-col justify-between";
+            card.innerHTML = `
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 bg-blue-600/10 rounded-lg text-blue-500"><i data-lucide="${typeIcons[p.type] || 'factory'}" class="w-5 h-5"></i></div>
+                        <span class="text-[8px] font-mono text-slate-500">${p.year}</span>
                     </div>
+                    <p class="text-[7px] md:text-[9px] font-black text-blue-400 uppercase tracking-widest mb-0.5">${p.client}</p>
+                    <h3 class="text-xs md:text-base font-bold text-white leading-tight mb-2 uppercase">${p.name}</h3>
+                    <p class="text-[8px] md:text-[10px] text-slate-500 mb-4 flex items-center"><i data-lucide="map-pin" class="w-2.5 h-2.5 mr-1"></i> ${p.loc}</p>
+                </div>
+                <div class="pt-3 border-t border-slate-800 flex justify-between items-end">
+                    <div>
+                        <p class="text-[7px] font-black text-slate-500 uppercase tracking-widest mb-0.5">Kapasitas</p>
+                        <div class="flex items-baseline space-x-1">
+                            <span class="text-lg md:text-xl font-black text-white">${p.cap.toLocaleString('id-ID')}</span>
+                            <span class="text-[8px] md:text-[9px] font-bold text-slate-500">m³/hari</span>
+                        </div>
+                    </div>
+                    <div class="px-2 py-0.5 bg-slate-800 text-blue-500 rounded-full text-[7px] md:text-[9px] font-black uppercase">${p.lps} LPS</div>
                 </div>`;
+            container.appendChild(card);
         });
 
         lucide.createIcons();
 
-        // --- Logika Odometer ---
-        const animateOdometer = (el) => {
+        // --- Logika Odometer & Scroll yang Aman ---
+        let scrollInterval;
+        let isUserInteracting = false;
+
+        function animateOdometer(el) {
             const target = parseFloat(el.getAttribute('data-target'));
             const duration = 2000;
             const startTime = performance.now();
@@ -118,44 +160,40 @@
                 const elapsed = now - startTime;
                 const progress = Math.min(elapsed / duration, 1);
                 const currentVal = progress * target;
-                el.innerText = Math.floor(currentVal).toLocaleString('id-ID');
+                if(el.hasAttribute('data-decimals')) {
+                    el.innerText = currentVal.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+                } else {
+                    el.innerText = Math.floor(currentVal).toLocaleString('id-ID');
+                }
                 if (progress < 1) requestAnimationFrame(update);
             };
             requestAnimationFrame(update);
-        };
+        }
 
-        // --- Logika Auto Scroll (Hanya Scroll, TANPA Redirect) ---
-        let autoScrollActive = true;
-        let scrollInterval;
-
-        function startScroll() {
-            if (!autoScrollActive) return;
-            // Scroll perlahan 1 pixel setiap 30ms
+        function startAutoScroll() {
+            if (isUserInteracting) return;
             scrollInterval = setInterval(() => {
                 window.scrollBy(0, 1);
-                // Jika sudah sampai paling bawah, berhenti
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                    stopScroll();
-                }
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) stopAutoScroll();
             }, 30);
         }
 
-        function stopScroll() {
-            autoScrollActive = false;
+        function stopAutoScroll() {
+            isUserInteracting = true;
             clearInterval(scrollInterval);
         }
 
-        // Berhenti jika user menyentuh layar atau scroll manual
-        window.addEventListener('wheel', stopScroll);
-        window.addEventListener('touchstart', stopScroll);
+        // Event listener untuk interupsi scroll manual
+        window.addEventListener('wheel', stopAutoScroll);
+        window.addEventListener('touchstart', stopAutoScroll);
 
         window.addEventListener('load', () => {
             document.querySelectorAll('.odometer').forEach(animateOdometer);
-            setTimeout(startScroll, 2000); // Mulai scroll setelah 2 detik
+            setTimeout(startAutoScroll, 3000);
         });
 
         document.getElementById('re-animate-btn').addEventListener('click', () => {
-            stopScroll();
+            stopAutoScroll();
             document.querySelectorAll('.odometer').forEach(animateOdometer);
         });
     </script>
