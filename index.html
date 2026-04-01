@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Invila™ | Project Capacity Portfolio</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
@@ -66,11 +64,9 @@
 </head>
 <body class="antialiased custom-scrollbar">
 
-    <!-- Header / Navbar - Compact -->
     <nav class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/50 px-4 py-2 md:py-3">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <!-- Logo Invila Link -->
                 <a href="logo-invila.png" target="_blank" class="block hover:opacity-80 transition-opacity">
                     <img src="logo-invila.png" alt="Invila Logo" class="h-8 md:h-10 w-auto object-contain" onerror="this.outerHTML='<div class=\'w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-lg md:text-xl shadow-lg shadow-blue-600/40\'>I</div>'">
                 </a>
@@ -86,7 +82,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section: Ultra-Compact for Mobile Android/iPhone -->
     <section class="hero-section hero-gradient py-6 md:py-20 px-4 text-center border-b border-slate-900 flex flex-col justify-center min-h-[50vh] md:min-h-0">
         <div class="max-w-5xl mx-auto w-full">
             <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded-full mb-3 md:mb-6">
@@ -112,7 +107,6 @@
                 </div>
             </div>
 
-            <!-- Compact Recalculate Button -->
             <button id="recalculate-btn" class="mx-auto flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/50 text-blue-400 hover:text-white px-4 py-2 md:px-6 md:py-3 rounded-lg md:rounded-2xl text-[8px] md:text-xs font-black uppercase tracking-widest transition-all active:scale-95 group">
                 <i data-lucide="refresh-cw" class="w-3 h-3 md:w-4 md:h-4 group-hover:rotate-180 transition-transform"></i>
                 <span>Recalculate</span>
@@ -120,7 +114,6 @@
         </div>
     </section>
 
-    <!-- Project List: Responsive Grid -->
     <section class="py-8 md:py-16 px-4 md:px-6 max-w-7xl mx-auto">
         <div class="flex items-center justify-between mb-6 md:mb-10">
             <div>
@@ -135,11 +128,9 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="project-container">
-            <!-- Project cards injected via JS -->
-        </div>
+            </div>
     </section>
 
-    <!-- Footer: Clean & Professional -->
     <footer class="bg-black py-10 px-4 md:px-6 border-t border-slate-900 text-center">
         <div class="max-w-4xl mx-auto">
             <h3 class="text-base md:text-xl font-black text-white mb-3 italic tracking-tight uppercase">Menghasilkan Air Bersih dalam Skala Masif.</h3>
@@ -149,7 +140,6 @@
     </footer>
 
     <script>
-        // Data Proyek - Menggunakan jalur file langsung (GitHub Friendly)
         const projectData = [
             { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
             { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
@@ -163,13 +153,11 @@
         ];
 
         const typeIcons = { IPA: 'droplets', WTP: 'factory', SAPM: 'layers', RECYCLE: 'refresh-ccw', FUTURE: 'cpu' };
-
         const container = document.getElementById('project-container');
+        
         projectData.forEach(p => {
             const card = document.createElement('div');
             card.className = "project-card p-4 md:p-6 rounded-[1.2rem] md:rounded-[1.5rem] flex flex-col justify-between";
-            
-            // Perbaikan jalur gambar ke root agar langsung muncul di GitHub
             const logoContent = p.logo 
                 ? `<div class="logo-frame shadow-sm"><img src="${p.logo}" alt="${p.client}" onerror="this.parentElement.innerHTML='<i data-lucide=\\'${typeIcons[p.type] || 'factory'}\\' class=\\'w-5 h-5 text-blue-500\\'></i>'"></div>`
                 : `<div class="p-2 bg-blue-600/10 rounded-lg text-blue-500"><i data-lucide="${typeIcons[p.type] || 'cpu'}" class="w-5 h-5"></i></div>`;
@@ -205,6 +193,33 @@
 
         lucide.createIcons();
 
+        // --- Logika Auto Scroll & Redirect ---
+        const startAutoFlow = () => {
+            const scrollDuration = 4000; // 4 detik durasi scroll ke bawah
+            const targetUrl = "https://invilawatertreatment-blip.github.io/McKinsey-Global-/";
+            const startTimestamp = performance.now();
+            const startScrollY = window.scrollY;
+            const targetScrollY = document.body.scrollHeight - window.innerHeight;
+
+            function step(now) {
+                const elapsed = now - startTimestamp;
+                const progress = Math.min(elapsed / scrollDuration, 1);
+                
+                // Animasi scroll halus
+                window.scrollTo(0, startScrollY + (targetScrollY * progress));
+
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    // Redirect setelah jeda singkat di bawah
+                    setTimeout(() => {
+                        window.location.href = targetUrl;
+                    }, 500);
+                }
+            }
+            window.requestAnimationFrame(step);
+        };
+
         const animateOdometer = (el) => {
             const target = parseFloat(el.getAttribute('data-target'));
             const unit = el.getAttribute('data-unit') || '';
@@ -221,33 +236,25 @@
                     el.innerText = Math.floor(currentVal).toLocaleString('id-ID') + unit;
                 }
                 if (progress < 1) requestAnimationFrame(update);
-                else {
-                    if(el.hasAttribute('data-decimals')) {
-                        el.innerText = target.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + unit;
-                    } else {
-                        el.innerText = target.toLocaleString('id-ID') + unit;
-                    }
-                }
             };
             requestAnimationFrame(update);
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateOdometer(entry.target);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.odometer').forEach(odo => observer.observe(odo));
+        // Jalankan animasi & persiapan scroll
+        window.addEventListener('load', () => {
+            // Animasikan semua odometer segera
+            document.querySelectorAll('.odometer').forEach(odo => animateOdometer(odo));
+            
+            // Tunggu sebentar agar user melihat angka berubah, lalu mulai scroll
+            setTimeout(startAutoFlow, 2500);
+        });
 
         document.getElementById('recalculate-btn').addEventListener('click', () => {
             document.querySelectorAll('.odometer').forEach(odo => {
                 odo.innerText = "0";
                 animateOdometer(odo);
             });
+            setTimeout(startAutoFlow, 2000);
         });
     </script>
 </body>
