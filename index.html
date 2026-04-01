@@ -14,12 +14,14 @@
             background-color: #020617;
             color: #f8fafc;
             touch-action: pan-y;
+            overflow-x: hidden;
         }
 
         .project-card {
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(51, 65, 85, 0.5);
+            transition: transform 0.3s ease;
         }
 
         .hero-gradient {
@@ -30,18 +32,6 @@
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #020617; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
-        
-        .logo-frame {
-            background: white;
-            padding: 4px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 36px;
-            width: 36px;
-            overflow: hidden;
-        }
     </style>
 </head>
 <body class="antialiased custom-scrollbar">
@@ -54,7 +44,7 @@
                     <span class="text-[6px] md:text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Water Technology Ecosystem</span>
                 </div>
             </div>
-            <button onclick="window.history.back()" class="flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 text-blue-400 hover:text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase transition-all">
+            <button onclick="window.history.back()" class="flex items-center space-x-2 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 text-blue-400 hover:text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase transition-all active:scale-95">
                 <i data-lucide="arrow-left" class="w-3 h-3"></i>
                 <span>Back</span>
             </button>
@@ -79,7 +69,8 @@
                 </div>
                 <div class="mt-2 md:mt-4 text-center">
                     <p class="text-[9px] md:text-sm text-slate-400 font-bold uppercase tracking-widest">
-                        Setara ± <span class="text-white odometer" data-target="216862" data-decimals="1">0</span> m³/hari
+                        Setara ± <span class="text-white odometer" data-target="216862" data-decimals="1">0</span> m³/hari <br class="md:hidden">
+                        <span class="text-blue-500">9 Khusus WTP Air Bersih (Diluar IPAL Medis)</span>
                     </p>
                 </div>
             </div>
@@ -92,7 +83,13 @@
     </section>
 
     <section class="py-8 md:py-16 px-4 md:px-6 max-w-7xl mx-auto">
-        <h2 class="text-lg md:text-2xl font-black text-white uppercase tracking-tight mb-8">Pengalaman Proyek</h2>
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg md:text-2xl font-black text-white uppercase tracking-tight">Pengalaman Proyek</h2>
+            <div class="flex items-center space-x-2 text-blue-500">
+                <i data-lucide="droplets" class="w-4 h-4"></i>
+                <span class="text-[8px] md:text-xs font-black uppercase tracking-widest">WTP & RECYCLE</span>
+            </div>
+        </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="project-container"></div>
     </section>
 
@@ -104,20 +101,20 @@
     </footer>
 
     <script>
-        // DATA LENGKAP DIKEMBALIKAN
+        // DATA UPDATED: Semua SAPM diganti menjadi WTP
         const projectData = [
-            { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
-            { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", logo: "tirtanadi.png", type: "IPA" },
-            { no: 3, name: "WTP PDAM Tirta Asasta Legong", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
-            { no: 4, name: "WTP PDAM Tirta Asasta Citayam", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", logo: "tirta-asasta-depok.png", type: "WTP" },
-            { no: 5, name: "SAPM Gunung Sari Petro Kimia", loc: "Surabaya", client: "PT Petro Kimia Gresik", cap: 71971, lps: 833, year: "2016", logo: "petrokimia-gresik.png", type: "SAPM" },
-            { no: 6, name: "SAPM KI Wijayakusuma", loc: "Semarang", client: "PT Indisi", cap: 4320, lps: 50, year: "2017–2018", logo: "kiw.png", type: "SAPM" },
-            { no: 7, name: "IPAL-IPA Recycle Kievit", loc: "Salatiga", client: "PT Kievit Indonesia", cap: 259, lps: 3, year: "2017–2018", logo: "kievit.png", type: "RECYCLE" },
-            { no: 8, name: "SAPM Patria Maritim Perkasa", loc: "Wijayakusuma", client: "PT PMP", cap: 2160, lps: 25, year: "2024", logo: "patria-maritim-perkasa.png", type: "SAPM" },
-            { no: 9, name: "SAPM KI Wijayakusuma Phase II", loc: "Semarang", client: "PT KIW", cap: 4320, lps: 50, year: "2026", logo: "kiw.png", type: "FUTURE" }
+            { no: 1, name: "Clarifier 6 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", type: "IPA" },
+            { no: 2, name: "Clarifier 1 PDAM Tirtanadi", loc: "Medan-Sunggal", client: "PDAM Tirtanadi", cap: 43200, lps: 500, year: "2013–2014", type: "IPA" },
+            { no: 3, name: "WTP PDAM Tirta Asasta Legong", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", type: "WTP" },
+            { no: 4, name: "WTP PDAM Tirta Asasta Citayam", loc: "Depok", client: "PDAM", cap: 25920, lps: 300, year: "2016", type: "WTP" },
+            { no: 5, name: "WTP Gunung Sari Petro Kimia", loc: "Surabaya", client: "PT Petro Kimia Gresik", cap: 71971, lps: 833, year: "2016", type: "WTP" },
+            { no: 6, name: "WTP KI Wijayakusuma", loc: "Semarang", client: "PT Indisi", cap: 4320, lps: 50, year: "2017–2018", type: "WTP" },
+            { no: 7, name: "IPAL-IPA Recycle Kievit", loc: "Salatiga", client: "PT Kievit Indonesia", cap: 259, lps: 3, year: "2017–2018", type: "RECYCLE" },
+            { no: 8, name: "WTP Patria Maritim Perkasa", loc: "Wijayakusuma", client: "PT PMP", cap: 2160, lps: 25, year: "2024", type: "WTP" },
+            { no: 9, name: "WTP KI Wijayakusuma Phase II", loc: "Semarang", client: "PT KIW", cap: 4320, lps: 50, year: "2026", type: "FUTURE" }
         ];
 
-        const typeIcons = { IPA: 'droplets', WTP: 'factory', SAPM: 'layers', RECYCLE: 'refresh-ccw', FUTURE: 'cpu' };
+        const typeIcons = { IPA: 'droplets', WTP: 'factory', RECYCLE: 'refresh-ccw', FUTURE: 'cpu' };
         const container = document.getElementById('project-container');
         
         projectData.forEach(p => {
@@ -148,10 +145,7 @@
 
         lucide.createIcons();
 
-        // --- Logika Odometer & Scroll yang Aman ---
-        let scrollInterval;
-        let isUserInteracting = false;
-
+        // --- Logika Odometer ---
         function animateOdometer(el) {
             const target = parseFloat(el.getAttribute('data-target'));
             const duration = 2000;
@@ -170,26 +164,33 @@
             requestAnimationFrame(update);
         }
 
+        // --- Logika Auto Scroll (Lebih Cepat & Interuptible) ---
+        let scrollInterval;
+        let isStopped = false;
+
         function startAutoScroll() {
-            if (isUserInteracting) return;
+            if (isStopped) return;
             scrollInterval = setInterval(() => {
-                window.scrollBy(0, 1);
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) stopAutoScroll();
-            }, 30);
+                window.scrollBy(0, 1.5); // Dipercepat (dari 1 ke 1.5)
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    clearInterval(scrollInterval);
+                }
+            }, 20); // Interval diperkecil (dari 30ms ke 20ms) untuk kehalusan
         }
 
         function stopAutoScroll() {
-            isUserInteracting = true;
+            isStopped = true;
             clearInterval(scrollInterval);
         }
 
-        // Event listener untuk interupsi scroll manual
-        window.addEventListener('wheel', stopAutoScroll);
-        window.addEventListener('touchstart', stopAutoScroll);
+        // Deteksi Interaksi Manual untuk menghentikan auto-scroll
+        window.addEventListener('wheel', stopAutoScroll, { passive: true });
+        window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+        window.addEventListener('mousedown', stopAutoScroll);
 
         window.addEventListener('load', () => {
             document.querySelectorAll('.odometer').forEach(animateOdometer);
-            setTimeout(startAutoScroll, 3000);
+            setTimeout(startAutoScroll, 2500); // Mulai scroll otomatis setelah 2.5 detik
         });
 
         document.getElementById('re-animate-btn').addEventListener('click', () => {
